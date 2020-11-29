@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yoyling.mapper.ScoreMapper">
+  <resultMap id="BaseResultMap" type="com.yoyling.domain.Score">
+    <id column="score_id" jdbcType="INTEGER" property="scoreId" />
+    <result column="xh" jdbcType="VARCHAR" property="xh" />
+    <result column="kch" jdbcType="VARCHAR" property="kch" />
+    <result column="cj" jdbcType="INTEGER" property="cj" />
+    <result column="jd" jdbcType="REAL" property="jd" />
+    <result column="xf" jdbcType="REAL" property="xf" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    score_id, xh, kch, cj, jd, xf
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from score
+    where score_id = #{scoreId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from score
+    where score_id = #{scoreId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yoyling.domain.Score">
+    insert into score (score_id, xh, kch, 
+      cj, jd, xf)
+    values (#{scoreId,jdbcType=INTEGER}, #{xh,jdbcType=VARCHAR}, #{kch,jdbcType=VARCHAR}, 
+      #{cj,jdbcType=INTEGER}, #{jd,jdbcType=REAL}, #{xf,jdbcType=REAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yoyling.domain.Score">
+    insert into score
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="scoreId != null">
+        score_id,
+      </if>
+      <if test="xh != null">
+        xh,
+      </if>
+      <if test="kch != null">
+        kch,
+      </if>
+      <if test="cj != null">
+        cj,
+      </if>
+      <if test="jd != null">
+        jd,
+      </if>
+      <if test="xf != null">
+        xf,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="scoreId != null">
+        #{scoreId,jdbcType=INTEGER},
+      </if>
+      <if test="xh != null">
+        #{xh,jdbcType=VARCHAR},
+      </if>
+      <if test="kch != null">
+        #{kch,jdbcType=VARCHAR},
+      </if>
+      <if test="cj != null">
+        #{cj,jdbcType=INTEGER},
+      </if>
+      <if test="jd != null">
+        #{jd,jdbcType=REAL},
+      </if>
+      <if test="xf != null">
+        #{xf,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yoyling.domain.Score">
+    update score
+    <set>
+      <if test="xh != null">
+        xh = #{xh,jdbcType=VARCHAR},
+      </if>
+      <if test="kch != null">
+        kch = #{kch,jdbcType=VARCHAR},
+      </if>
+      <if test="cj != null">
+        cj = #{cj,jdbcType=INTEGER},
+      </if>
+      <if test="jd != null">
+        jd = #{jd,jdbcType=REAL},
+      </if>
+      <if test="xf != null">
+        xf = #{xf,jdbcType=REAL},
+      </if>
+    </set>
+    where score_id = #{scoreId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yoyling.domain.Score">
+    update score
+    set xh = #{xh,jdbcType=VARCHAR},
+      kch = #{kch,jdbcType=VARCHAR},
+      cj = #{cj,jdbcType=INTEGER},
+      jd = #{jd,jdbcType=REAL},
+      xf = #{xf,jdbcType=REAL}
+    where score_id = #{scoreId,jdbcType=INTEGER}
+  </update>
+</mapper>
