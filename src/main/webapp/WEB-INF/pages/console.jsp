@@ -106,8 +106,8 @@
 					<div class="layui-card">
 						<div class="layui-card-header">所有学院师资力量对比</div>
 						<div class="layui-card-body">
-							<div id="container3" class="layui-carousel layadmin-carousel layadmin-dataview"
-							     style="height: 100%">
+							<div id="container3" class="layui-carousel layadmin-carousel layadmin-dataview" style="height: 100%">
+								123
 							</div>
 						</div>
 					</div>
@@ -116,8 +116,7 @@
 					<div class="layui-card">
 						<div class="layui-card-header">学生男女比概览</div>
 						<div class="layui-card-body">
-							<div id="container" class="layui-carousel layadmin-carousel layadmin-dataview"
-							     style="height: 100%">
+							<div id="container" class="layui-carousel layadmin-carousel layadmin-dataview" style="height: 100%">
 							</div>
 						</div>
 					</div>
@@ -126,8 +125,7 @@
 					<div class="layui-card">
 						<div class="layui-card-header">学院学生人数比概览</div>
 						<div class="layui-card-body">
-							<div id="container2" class="layui-carousel layadmin-carousel layadmin-dataview"
-							     style="height: 100%">
+							<div id="container2" class="layui-carousel layadmin-carousel layadmin-dataview" style="height: 100%">
 							</div>
 						</div>
 					</div>
@@ -211,9 +209,9 @@
 				</div>
 				<div class="layui-card-body layui-text layadmin-text">
 					<c:forEach items="${notifies}" var="notify" varStatus="n">
-					<p style="text-indent:0em;">${notify.notifyDate.toLocaleString()}<br><font
-							style="color: #009688">${notify.notifyContent}</font>
-						</c:forEach>
+						<p style="text-indent:0em;">${notify.notifyDate.toLocaleString()}<br>
+						<font style="color: #009688">${notify.notifyContent}</font>
+					</c:forEach>
 				</div>
 			</div>
 			<div class="layui-card">
@@ -382,7 +380,6 @@
 						}
 					]
 				};
-				;
 				if (option && typeof option === "object") {
 					myChart.setOption(option, true);
 				}
