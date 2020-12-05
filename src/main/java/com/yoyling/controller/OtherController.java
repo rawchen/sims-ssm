@@ -21,4 +21,9 @@ public class OtherController {
 		model.addAttribute("notifies",notifies);
 		return "console";
 	}
+
+	@RequestMapping("/test")
+	public String test() {
+		return "index";
+	}
 }

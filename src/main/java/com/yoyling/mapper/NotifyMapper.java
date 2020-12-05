@@ -11,9 +11,9 @@ public interface NotifyMapper {
 
     int insertSelective(Notify record);
 
-    Notify selectByPrimaryKey(Integer notifyId);
-
     List<Notify> selectFiveNotify();
+
+    Notify selectByPrimaryKey(Integer notifyId);
 
     int updateByPrimaryKeySelective(Notify record);
 

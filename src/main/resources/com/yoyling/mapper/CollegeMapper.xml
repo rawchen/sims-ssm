@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yoyling.mapper.CollegeMapper">
+  <resultMap id="BaseResultMap" type="com.yoyling.domain.College">
+    <id column="college_id" jdbcType="INTEGER" property="collegeId" />
+    <result column="college_name" jdbcType="VARCHAR" property="collegeName" />
+    <result column="college_property" jdbcType="CHAR" property="collegeProperty" />
+    <result column="college_teacher_number" jdbcType="VARCHAR" property="collegeTeacherNumber" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    college_id, college_name, college_property, college_teacher_number
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from college
+    where college_id = #{collegeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from college
+    where college_id = #{collegeId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yoyling.domain.College">
+    insert into college (college_id, college_name, college_property, 
+      college_teacher_number)
+    values (#{collegeId,jdbcType=INTEGER}, #{collegeName,jdbcType=VARCHAR}, #{collegeProperty,jdbcType=CHAR}, 
+      #{collegeTeacherNumber,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yoyling.domain.College">
+    insert into college
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="collegeId != null">
+        college_id,
+      </if>
+      <if test="collegeName != null">
+        college_name,
+      </if>
+      <if test="collegeProperty != null">
+        college_property,
+      </if>
+      <if test="collegeTeacherNumber != null">
+        college_teacher_number,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="collegeId != null">
+        #{collegeId,jdbcType=INTEGER},
+      </if>
+      <if test="collegeName != null">
+        #{collegeName,jdbcType=VARCHAR},
+      </if>
+      <if test="collegeProperty != null">
+        #{collegeProperty,jdbcType=CHAR},
+      </if>
+      <if test="collegeTeacherNumber != null">
+        #{collegeTeacherNumber,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yoyling.domain.College">
+    update college
+    <set>
+      <if test="collegeName != null">
+        college_name = #{collegeName,jdbcType=VARCHAR},
+      </if>
+      <if test="collegeProperty != null">
+        college_property = #{collegeProperty,jdbcType=CHAR},
+      </if>
+      <if test="collegeTeacherNumber != null">
+        college_teacher_number = #{collegeTeacherNumber,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where college_id = #{collegeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yoyling.domain.College">
+    update college
+    set college_name = #{collegeName,jdbcType=VARCHAR},
+      college_property = #{collegeProperty,jdbcType=CHAR},
+      college_teacher_number = #{collegeTeacherNumber,jdbcType=VARCHAR}
+    where college_id = #{collegeId,jdbcType=INTEGER}
+  </update>
+</mapper>

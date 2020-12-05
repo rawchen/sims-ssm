@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yoyling.mapper.ClassesMapper">
+  <resultMap id="BaseResultMap" type="com.yoyling.domain.Classes">
+    <id column="classes_id" jdbcType="INTEGER" property="classesId" />
+    <result column="major_id" jdbcType="INTEGER" property="majorId" />
+    <result column="classes_name" jdbcType="VARCHAR" property="classesName" />
+    <result column="classes_taecher_number" jdbcType="INTEGER" property="classesTaecherNumber" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    classes_id, major_id, classes_name, classes_taecher_number
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from classes
+    where classes_id = #{classesId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from classes
+    where classes_id = #{classesId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yoyling.domain.Classes">
+    insert into classes (classes_id, major_id, classes_name, 
+      classes_taecher_number)
+    values (#{classesId,jdbcType=INTEGER}, #{majorId,jdbcType=INTEGER}, #{classesName,jdbcType=VARCHAR}, 
+      #{classesTaecherNumber,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yoyling.domain.Classes">
+    insert into classes
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="classesId != null">
+        classes_id,
+      </if>
+      <if test="majorId != null">
+        major_id,
+      </if>
+      <if test="classesName != null">
+        classes_name,
+      </if>
+      <if test="classesTaecherNumber != null">
+        classes_taecher_number,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="classesId != null">
+        #{classesId,jdbcType=INTEGER},
+      </if>
+      <if test="majorId != null">
+        #{majorId,jdbcType=INTEGER},
+      </if>
+      <if test="classesName != null">
+        #{classesName,jdbcType=VARCHAR},
+      </if>
+      <if test="classesTaecherNumber != null">
+        #{classesTaecherNumber,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yoyling.domain.Classes">
+    update classes
+    <set>
+      <if test="majorId != null">
+        major_id = #{majorId,jdbcType=INTEGER},
+      </if>
+      <if test="classesName != null">
+        classes_name = #{classesName,jdbcType=VARCHAR},
+      </if>
+      <if test="classesTaecherNumber != null">
+        classes_taecher_number = #{classesTaecherNumber,jdbcType=INTEGER},
+      </if>
+    </set>
+    where classes_id = #{classesId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yoyling.domain.Classes">
+    update classes
+    set major_id = #{majorId,jdbcType=INTEGER},
+      classes_name = #{classesName,jdbcType=VARCHAR},
+      classes_taecher_number = #{classesTaecherNumber,jdbcType=INTEGER}
+    where classes_id = #{classesId,jdbcType=INTEGER}
+  </update>
+</mapper>

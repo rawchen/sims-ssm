@@ -15,7 +15,7 @@
     from notify
     where notify_id = #{notifyId,jdbcType=INTEGER}
   </select>
-  
+
   <select id="selectFiveNotify" resultMap="BaseResultMap">
     select * from notify order by notify_date DESC limit 5;
   </select>

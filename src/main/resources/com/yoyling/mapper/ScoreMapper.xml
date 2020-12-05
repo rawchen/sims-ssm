@@ -5,7 +5,7 @@
     <id column="score_id" jdbcType="INTEGER" property="scoreId" />
     <result column="xh" jdbcType="VARCHAR" property="xh" />
     <result column="kch" jdbcType="VARCHAR" property="kch" />
-    <result column="cj" jdbcType="INTEGER" property="cj" />
+    <result column="cj" jdbcType="VARCHAR" property="cj" />
     <result column="jd" jdbcType="REAL" property="jd" />
     <result column="xf" jdbcType="REAL" property="xf" />
   </resultMap>
@@ -26,7 +26,7 @@
     insert into score (score_id, xh, kch, 
       cj, jd, xf)
     values (#{scoreId,jdbcType=INTEGER}, #{xh,jdbcType=VARCHAR}, #{kch,jdbcType=VARCHAR}, 
-      #{cj,jdbcType=INTEGER}, #{jd,jdbcType=REAL}, #{xf,jdbcType=REAL})
+      #{cj,jdbcType=VARCHAR}, #{jd,jdbcType=REAL}, #{xf,jdbcType=REAL})
   </insert>
   <insert id="insertSelective" parameterType="com.yoyling.domain.Score">
     insert into score
@@ -61,7 +61,7 @@
         #{kch,jdbcType=VARCHAR},
       </if>
       <if test="cj != null">
-        #{cj,jdbcType=INTEGER},
+        #{cj,jdbcType=VARCHAR},
       </if>
       <if test="jd != null">
         #{jd,jdbcType=REAL},
@@ -81,7 +81,7 @@
         kch = #{kch,jdbcType=VARCHAR},
       </if>
       <if test="cj != null">
-        cj = #{cj,jdbcType=INTEGER},
+        cj = #{cj,jdbcType=VARCHAR},
       </if>
       <if test="jd != null">
         jd = #{jd,jdbcType=REAL},
@@ -96,7 +96,7 @@
     update score
     set xh = #{xh,jdbcType=VARCHAR},
       kch = #{kch,jdbcType=VARCHAR},
-      cj = #{cj,jdbcType=INTEGER},
+      cj = #{cj,jdbcType=VARCHAR},
       jd = #{jd,jdbcType=REAL},
       xf = #{xf,jdbcType=REAL}
     where score_id = #{scoreId,jdbcType=INTEGER}

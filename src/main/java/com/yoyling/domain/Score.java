@@ -9,7 +9,7 @@ public class Score implements Serializable {
 
     private String kch;
 
-    private Integer cj;
+    private String cj;
 
     private Float jd;
 
@@ -41,12 +41,12 @@ public class Score implements Serializable {
         this.kch = kch == null ? null : kch.trim();
     }
 
-    public Integer getCj() {
+    public String getCj() {
         return cj;
     }
 
-    public void setCj(Integer cj) {
-        this.cj = cj;
+    public void setCj(String cj) {
+        this.cj = cj == null ? null : cj.trim();
     }
 
     public Float getJd() {
@@ -71,7 +71,7 @@ public class Score implements Serializable {
                 "scoreId=" + scoreId +
                 ", xh='" + xh + '\'' +
                 ", kch='" + kch + '\'' +
-                ", cj=" + cj +
+                ", cj='" + cj + '\'' +
                 ", jd=" + jd +
                 ", xf=" + xf +
                 '}';

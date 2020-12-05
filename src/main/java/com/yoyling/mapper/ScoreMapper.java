@@ -1,9 +1,7 @@
 package com.yoyling.mapper;
 
 import com.yoyling.domain.Score;
-import org.springframework.stereotype.Repository;
 
-@Repository
 public interface ScoreMapper {
     int deleteByPrimaryKey(Integer scoreId);
 

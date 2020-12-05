@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yoyling.mapper.LogMapper">
+  <resultMap id="BaseResultMap" type="com.yoyling.domain.Log">
+    <id column="log_id" jdbcType="INTEGER" property="logId" />
+    <result column="time" jdbcType="TIMESTAMP" property="time" />
+    <result column="user_agent" jdbcType="VARCHAR" property="userAgent" />
+    <result column="action" jdbcType="VARCHAR" property="action" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    log_id, time, user_agent, action
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from log
+    where log_id = #{logId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from log
+    where log_id = #{logId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.yoyling.domain.Log">
+    insert into log (log_id, time, user_agent, 
+      action)
+    values (#{logId,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP}, #{userAgent,jdbcType=VARCHAR}, 
+      #{action,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yoyling.domain.Log">
+    insert into log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="logId != null">
+        log_id,
+      </if>
+      <if test="time != null">
+        time,
+      </if>
+      <if test="userAgent != null">
+        user_agent,
+      </if>
+      <if test="action != null">
+        action,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="logId != null">
+        #{logId,jdbcType=INTEGER},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userAgent != null">
+        #{userAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="action != null">
+        #{action,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yoyling.domain.Log">
+    update log
+    <set>
+      <if test="time != null">
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userAgent != null">
+        user_agent = #{userAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="action != null">
+        action = #{action,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where log_id = #{logId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yoyling.domain.Log">
+    update log
+    set time = #{time,jdbcType=TIMESTAMP},
+      user_agent = #{userAgent,jdbcType=VARCHAR},
+      action = #{action,jdbcType=VARCHAR}
+    where log_id = #{logId,jdbcType=INTEGER}
+  </update>
+</mapper>
