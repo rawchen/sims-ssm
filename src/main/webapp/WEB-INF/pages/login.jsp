@@ -130,7 +130,7 @@
 			//请求登入接口
 			$.ajax({
 				type: 'post'
-				, url: '${ctx}/loginTest' //实际使用请改成服务端真实接口
+				, url: '${ctx}/userLogin' //实际使用请改成服务端真实接口
 				, data: {'userName': field.username, 'userPassword': field.password, 'remember': field.remember}
 				, success: function (res) {
 					// //请求成功后，写入 access_token
@@ -138,7 +138,7 @@
 					//     key: setter.request.tokenName
 					//     ,value: res.data.access_token
 					// });
-
+					verifyCode = new GVerify("v_container");
 					if (res.data == "resultSuccess") {
 						//登入成功的提示与跳转
 						layer.msg('登入成功', {
