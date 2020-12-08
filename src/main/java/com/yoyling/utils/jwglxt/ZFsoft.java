@@ -161,7 +161,7 @@ public class ZFsoft {
 	/**
 	 * 查看成绩
 	 * @param xnm 年份比如2018
-	 * @param xqm 学期比如1
+	 * @param xqm 学期比如1、或者2、或者3或者不填则为全年
 	 * @return
 	 */
 	public List<Score> checkScore(String xnm,String xqm){
@@ -177,7 +177,12 @@ public class ZFsoft {
 		scoreHttpPost.setHeader("X-Requested-With","XMLHttpRequest");
 		List<NameValuePair>scoreParams=new ArrayList<NameValuePair>();
 		scoreParams.add(new BasicNameValuePair("xnm",xnm));
-		scoreParams.add(new BasicNameValuePair("xqm",xqm));
+		if ("".equals(xqm)) {
+			scoreParams.add(new BasicNameValuePair("xqm",""));
+		} else {
+			scoreParams.add(new BasicNameValuePair("xqm", (String.valueOf((Integer.parseInt(xqm) * Integer.parseInt(xqm) * 3)))));
+		}
+
 		scoreParams.add(new BasicNameValuePair("_search","false"));
 		scoreParams.add(new BasicNameValuePair("nd",""+new Date().getTime()));
 		scoreParams.add(new BasicNameValuePair("queryModel.showCount","100"));
@@ -234,9 +239,11 @@ public class ZFsoft {
 		return null;
 	}
 
+	/**
+	 * 获取学生信息
+	 */
 	public void getStudentInformation() {
 		HttpPost informationHttpPost=new HttpPost(STUDENT_INFORMATION_URL);
-
 
 		informationHttpPost.setHeader("Accept","application/json, text/javascript, */*; q=0.01");
 		informationHttpPost.setHeader("Accept-Encoding","gzip, deflate");
@@ -247,14 +254,6 @@ public class ZFsoft {
 		informationHttpPost.setHeader("Proxy-Connection","keep-alive");
 		informationHttpPost.setHeader("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36");
 		informationHttpPost.setHeader("X-Requested-With","XMLHttpRequest");
-
-//		List<NameValuePair> scoreParams = new ArrayList<NameValuePair>();
-
-//		NameValuePairtry {
-//			informationHttpPost.setEntity(new UrlEncodedFormEntity(scoreParams, "utf8"));
-//		} catch (UnsupportedEncodingException e) {
-//			e.printStackTrace();
-//		}
 
 		try {
 			CloseableHttpResponse scoreResponse = httpClient.execute(informationHttpPost);
@@ -280,33 +279,26 @@ public class ZFsoft {
 	/**
 	 * 查看课表
 	 * @param xnm 年份比如2018
-	 * @param xqm 学期比如1
+	 * @param xqm 学期比如1、2、3
 	 * @return
 	 */
 	public void checkTimetable(String xnm,String xqm){
-		HttpPost scoreHttpPost=new HttpPost(TIMETABLE_URL);
-		scoreHttpPost.setHeader("Accept","application/json, text/javascript, */*; q=0.01");
-		scoreHttpPost.setHeader("Accept-Encoding","gzip, deflate");
-		scoreHttpPost.setHeader("Accept-Language","zh-CN,zh;q=0.9");
-		scoreHttpPost.setHeader("Content-Type","application/x-www-form-urlencoded;charset=UTF-8");
-		scoreHttpPost.setHeader("Host","jw.xmut.edu.cn");
-		scoreHttpPost.setHeader("Origin","http://jw.xmut.edu.cn");
-		scoreHttpPost.setHeader("Proxy-Connection","keep-alive");
-		scoreHttpPost.setHeader("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36");
-		scoreHttpPost.setHeader("X-Requested-With","XMLHttpRequest");
-		List<NameValuePair>scoreParams=new ArrayList<NameValuePair>();
-		scoreParams.add(new BasicNameValuePair("xnm",xnm));
-		scoreParams.add(new BasicNameValuePair("xqm",xqm));
-//		scoreParams.add(new BasicNameValuePair("_search","false"));
-//		scoreParams.add(new BasicNameValuePair("nd",""+new Date().getTime()));
-//		scoreParams.add(new BasicNameValuePair("queryModel.showCount","100"));
-//		scoreParams.add(new BasicNameValuePair("queryModel.currentPage","1"));
-//		scoreParams.add(new BasicNameValuePair("queryModel.sortName",""));
-//		scoreParams.add(new BasicNameValuePair("queryModel.sortOrder","asc"));
-//		scoreParams.add(new BasicNameValuePair("time","1"));
+		HttpPost timetableHttpPost=new HttpPost(TIMETABLE_URL);
+		timetableHttpPost.setHeader("Accept","application/json, text/javascript, */*; q=0.01");
+		timetableHttpPost.setHeader("Accept-Encoding","gzip, deflate");
+		timetableHttpPost.setHeader("Accept-Language","zh-CN,zh;q=0.9");
+		timetableHttpPost.setHeader("Content-Type","application/x-www-form-urlencoded;charset=UTF-8");
+		timetableHttpPost.setHeader("Host","jw.xmut.edu.cn");
+		timetableHttpPost.setHeader("Origin","http://jw.xmut.edu.cn");
+		timetableHttpPost.setHeader("Proxy-Connection","keep-alive");
+		timetableHttpPost.setHeader("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36");
+		timetableHttpPost.setHeader("X-Requested-With","XMLHttpRequest");
+		List<NameValuePair>timetableParams=new ArrayList<NameValuePair>();
+		timetableParams.add(new BasicNameValuePair("xnm",xnm));
+		timetableParams.add(new BasicNameValuePair("xqm",xqm));
 		try {
-			scoreHttpPost.setEntity(new UrlEncodedFormEntity(scoreParams, "utf8"));
-			CloseableHttpResponse scoreResponse = httpClient.execute(scoreHttpPost);
+			timetableHttpPost.setEntity(new UrlEncodedFormEntity(timetableParams, "utf8"));
+			CloseableHttpResponse scoreResponse = httpClient.execute(timetableHttpPost);
 			if (scoreResponse.getStatusLine().getStatusCode() == 200) {
 				if (scoreResponse.getEntity() != null) {
 					String scoreJson = EntityUtils.toString(scoreResponse.getEntity(), "utf8");
@@ -320,31 +312,6 @@ public class ZFsoft {
 					JSONArray jsonArray = jsonObject.getJSONArray("kbList");
 
 					System.out.println(jsonArray);
-
-//					List<Score>scoreList=new ArrayList<Score>();
-//					for (int i = 0; i < jsonArray.length(); ++i) {
-//						JSONObject item = (JSONObject) jsonArray.get(i);
-//						Score score=new Score();
-//						score.setXh(item.getString("xh"));
-//						score.setXm(item.getString("xm"));
-//						score.setKcmc(item.getString("kcmc"));
-//						score.setBj(item.getString("bj"));
-//						score.setCj(item.getString("cj"));
-//						score.setXf(item.getString("xf"));
-//						String jd = "0";
-//						try {
-//							jd = item.getString("jd");
-//						} catch (Exception e) {
-//							e.printStackTrace();
-//						}
-//						score.setJd(jd);
-//						score.setJgmc(item.getString("jgmc"));
-//						score.setKch(item.getString("kch"));
-//						score.setKcxzmc(item.getString("kcxzmc"));
-//						score.setKsxz(item.getString("ksxz"));
-//						scoreList.add(score);
-//					}
-//					return  scoreList;
 				}
 			}
 		}catch (Exception e){

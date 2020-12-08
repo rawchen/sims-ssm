@@ -8,7 +8,7 @@ public class Test {
 
 		zFsoft.login("1812123206","csq990709..");
 
-		List<Score> scoreList=zFsoft.checkScore("2018","16");
+		List<Score> scoreList=zFsoft.checkScore("2018","");
 
 		for(Score score:scoreList){
 			System.out.println(score);
