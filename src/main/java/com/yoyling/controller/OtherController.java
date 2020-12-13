@@ -1,8 +1,10 @@
 package com.yoyling.controller;
 
 import com.yoyling.domain.Notify;
+import com.yoyling.domain.Score;
 import com.yoyling.domain.User;
 import com.yoyling.service.NotifyService;
+import com.yoyling.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,12 +13,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Controller
 public class OtherController {
+
+	HttpSession session;
 
 	@Autowired
 	private NotifyService notifyService;
@@ -33,8 +39,12 @@ public class OtherController {
 		return "index";
 	}
 
+
+	@RequestMapping("/login")
 	@ResponseBody //直接返回 json 数据
-	public Map<String, Object> loginTest(User user, @RequestParam(value = "remember", required = false) String remember) {
+	public Map<String, Object> loginTest(User user,
+			@RequestParam(value = "remember", required = false) String remember,
+			HttpServletRequest request, HttpServletResponse response) {
 		Map<String, Object> map = new HashMap();
 		User userSessionInfo = null;
 		if (userSessionInfo == null) {
@@ -42,20 +52,28 @@ public class OtherController {
 		} else {
 			map.put("data", "resultSuccess");
 			//登录成功设置session
-//			session.setAttribute(Constants.USERINFO_SESSION, userSessionInfo);
+			session.setAttribute(Constants.USERINFO_SESSION, userSessionInfo);
 			//记住密码存cookie
-//			SetCookie.setUserLoginCookie(user.getUserName(), user.getUserPassword(), remember, request, response);
+//			SetSession.setUserLoginCookie(user.getUserName(), user.getUserPassword(), remember, request, response);
 		}
 		return map;
 	}
 
-	@RequestMapping("/userLogin")
-	public String userLogin(HttpServletRequest request) {
-		String a = request.getParameter("username");
-		String b = request.getParameter("password");
-		String c = request.getParameter("");
-		System.out.println(a);
-		System.out.println(b);
-		return "index";
+	@RequestMapping("/json")
+	@ResponseBody
+	public Score toJson(){
+		Score score = new Score();
+		score.setCj("89");
+		score.setJd(4.2f);
+		return score;
+	}
+
+	@RequestMapping("/json2")
+	@ResponseBody
+	public Map<String, String> toJson2(){
+		Map<String, String> map = new HashMap<>();
+		map.put("data","111");
+		map.put("data2","222");
+		return map;
 	}
 }

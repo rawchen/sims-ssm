@@ -53,8 +53,4 @@
 		<param-value>classpath:spring-context.xml</param-value>
 	</context-param>
 
-	<welcome-file-list>
-		<welcome-file>/WEB-INF/pages/login.jsp</welcome-file>
-	</welcome-file-list>
-
 </web-app>

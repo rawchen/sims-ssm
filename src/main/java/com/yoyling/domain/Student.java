@@ -3,7 +3,7 @@ package com.yoyling.domain;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Student implements Serializable {
+public class Student extends User implements Serializable {
     private Integer studentId;
 
     private Integer classesId;
@@ -94,5 +94,20 @@ public class Student implements Serializable {
 
     public void setStudentDegree(String studentDegree) {
         this.studentDegree = studentDegree == null ? null : studentDegree.trim();
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "studentId=" + studentId +
+                ", classesId=" + classesId +
+                ", studentNumber='" + studentNumber + '\'' +
+                ", studentName='" + studentName + '\'' +
+                ", studentSex='" + studentSex + '\'' +
+                ", studentPhone='" + studentPhone + '\'' +
+                ", studentEmail='" + studentEmail + '\'' +
+                ", studentBirthday=" + studentBirthday +
+                ", studentDegree='" + studentDegree + '\'' +
+                '}';
     }
 }

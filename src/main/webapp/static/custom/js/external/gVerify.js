@@ -75,7 +75,7 @@
 				// ctx.font = randomNum(this.options.height/2, this.options.height) + 'px SimHei'; //随机生成字体大小
 				ctx.font = 'normal bold 30px px SimHei'; //随机生成字体大小
 				// ctx.fillStyle = randomColor(50, 160); //随机生成字体颜色
-				ctx.fillStyle = randomColor(50, 50);
+				ctx.fillStyle = randomColor(30,200);
 				// ctx.shadowOffsetX = randomNum(-3, 3);
 				// ctx.shadowOffsetY = randomNum(-3, 3);
 				// ctx.shadowBlur = randomNum(-3, 3);

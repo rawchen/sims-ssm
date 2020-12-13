@@ -45,7 +45,7 @@
 						       placeholder="图形验证码" class="layui-input">
 					</div>
 					<div class="layui-col-xs5">
-						<div id="v_container" style="margin-left: 10px;width: 130px;height: 36px;">
+						<div id="v_container" style="margin-left: 8px;width: 130px;height: 36px;">
 							<%--<img src="https://www.oschina.net/action/user/captcha" class="layadmin-user-login-codeimg" id="LAY-user-get-vercode">--%>
 						</div>
 					</div>
@@ -73,7 +73,7 @@
 	</div>
 
 	<div class="layui-trans layadmin-user-login-footer">
-		<p>© 2019 <a href="https://yoyling.com" target="_blank">yoyling.com</a></p>
+		<p>© 2020 <a href="https://yoyling.com" target="_blank">yoyling.com</a></p>
 	</div>
 </div>
 
@@ -146,7 +146,7 @@
 							, icon: 1
 							, time: 1000
 						}, function () {
-							location.href = '${ctx}/index'; //后台主页
+							<%--location.href = '${ctx}/index'; //后台主页--%>
 						});
 					} else if (res.data == "resultFail") {
 						verifyCode = new GVerify("v_container");
@@ -166,6 +166,94 @@
 			});
 
 		});
+
+		$.ajax({
+			type: 'get'
+			, url: '${ctx}/json' //实际使用请改成服务端真实接口
+			, success: function (res) {
+				if (res.cj == "89") {
+					//登入成功的提示与跳转
+					layer.msg('成绩对了', {
+						offset: '15px'
+						, icon: 1
+						, time: 1000
+					}, function () {
+						<%--location.href = '${ctx}/index'; //后台主页--%>
+					});
+				} else if (res.cj != "89") {
+					layer.msg('成绩错误', {
+						offset: '15px'
+						, icon: 2
+						, time: 1000
+					});
+				} else {
+					layer.msg('未知错误', {
+						offset: '15px'
+						, icon: 2
+						, time: 1000
+					});
+				}
+			}
+		});
+
+
+		$.ajax({
+			type: 'get'
+			, url: '${ctx}/json2' //实际使用请改成服务端真实接口
+			, success: function (res) {
+				if (res.data == "111") {
+					//登入成功的提示与跳转
+					layer.msg('map对了', {
+						offset: '15px'
+						, icon: 1
+						, time: 1000
+					});
+				} else if (res.data != "111") {
+					layer.msg('错误', {
+						offset: '15px'
+						, icon: 2
+						, time: 1000
+					});
+				} else {
+					layer.msg('未知错误', {
+						offset: '15px'
+						, icon: 2
+						, time: 1000
+					});
+				}
+			}
+		});
+
+
+		setInterval(test,2000);
+		function test() {
+			$.ajax({
+				type: 'get'
+				, url: '${ctx}/json2' //实际使用请改成服务端真实接口
+				, success: function (res) {
+					if (res.data == "111") {
+						//登入成功的提示与跳转
+						layer.msg('map对了', {
+							offset: '15px'
+							, icon: 1
+							, time: 1000
+						});
+					} else if (res.data != "111") {
+						layer.msg('错误', {
+							offset: '15px'
+							, icon: 2
+							, time: 1000
+						});
+					} else {
+						layer.msg('未知错误', {
+							offset: '15px'
+							, icon: 2
+							, time: 1000
+						});
+					}
+				}
+			});
+		}
 
 
 		// //实际使用时记得删除该代码
