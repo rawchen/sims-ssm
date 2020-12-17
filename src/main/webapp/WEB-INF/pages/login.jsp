@@ -130,7 +130,7 @@
 			//请求登入接口
 			$.ajax({
 				type: 'post'
-				, url: '${ctx}/userLogin' //实际使用请改成服务端真实接口
+				, url: '${ctx}/user/userLogin' //实际使用请改成服务端真实接口
 				, data: {'userName': field.username, 'userPassword': field.password, 'remember': field.remember}
 				, success: function (res) {
 					// //请求成功后，写入 access_token
@@ -225,35 +225,35 @@
 		});
 
 
-		setInterval(test,2000);
-		function test() {
-			$.ajax({
-				type: 'get'
-				, url: '${ctx}/json2' //实际使用请改成服务端真实接口
-				, success: function (res) {
-					if (res.data == "111") {
-						//登入成功的提示与跳转
-						layer.msg('map对了', {
-							offset: '15px'
-							, icon: 1
-							, time: 1000
-						});
-					} else if (res.data != "111") {
-						layer.msg('错误', {
-							offset: '15px'
-							, icon: 2
-							, time: 1000
-						});
-					} else {
-						layer.msg('未知错误', {
-							offset: '15px'
-							, icon: 2
-							, time: 1000
-						});
-					}
-				}
-			});
-		}
+		<%--setInterval(test,2000);--%>
+		<%--function test() {--%>
+		<%--	$.ajax({--%>
+		<%--		type: 'get'--%>
+		<%--		, url: '${ctx}/json2' //实际使用请改成服务端真实接口--%>
+		<%--		, success: function (res) {--%>
+		<%--			if (res.data == "111") {--%>
+		<%--				//登入成功的提示与跳转--%>
+		<%--				layer.msg('map对了', {--%>
+		<%--					offset: '15px'--%>
+		<%--					, icon: 1--%>
+		<%--					, time: 1000--%>
+		<%--				});--%>
+		<%--			} else if (res.data != "111") {--%>
+		<%--				layer.msg('错误', {--%>
+		<%--					offset: '15px'--%>
+		<%--					, icon: 2--%>
+		<%--					, time: 1000--%>
+		<%--				});--%>
+		<%--			} else {--%>
+		<%--				layer.msg('未知错误', {--%>
+		<%--					offset: '15px'--%>
+		<%--					, icon: 2--%>
+		<%--					, time: 1000--%>
+		<%--				});--%>
+		<%--			}--%>
+		<%--		}--%>
+		<%--	});--%>
+		<%--}--%>
 
 
 		// //实际使用时记得删除该代码

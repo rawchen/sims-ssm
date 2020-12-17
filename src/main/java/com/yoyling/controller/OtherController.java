@@ -3,29 +3,19 @@ package com.yoyling.controller;
 import com.yoyling.domain.Notify;
 import com.yoyling.domain.Score;
 import com.yoyling.domain.User;
-import com.yoyling.service.NotifyService;
 import com.yoyling.utils.Constants;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Controller
-public class OtherController {
-
-	HttpSession session;
-
-	@Autowired
-	private NotifyService notifyService;
+public class OtherController extends BaseController {
 
 	@RequestMapping("/console")
 	public String console(Model model) {
@@ -43,8 +33,7 @@ public class OtherController {
 	@RequestMapping("/login")
 	@ResponseBody //直接返回 json 数据
 	public Map<String, Object> loginTest(User user,
-			@RequestParam(value = "remember", required = false) String remember,
-			HttpServletRequest request, HttpServletResponse response) {
+			@RequestParam(value = "remember", required = false) String remember) {
 		Map<String, Object> map = new HashMap();
 		User userSessionInfo = null;
 		if (userSessionInfo == null) {

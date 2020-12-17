@@ -74,4 +74,17 @@ public class User implements Serializable {
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail == null ? null : userEmail.trim();
     }
+
+	@Override
+	public String toString() {
+		return "User{" +
+				"userId=" + userId +
+				", userNumber='" + userNumber + '\'' +
+				", userName='" + userName + '\'' +
+				", userPassword='" + userPassword + '\'' +
+				", userIdentity='" + userIdentity + '\'' +
+				", userPhoto='" + userPhoto + '\'' +
+				", userEmail='" + userEmail + '\'' +
+				'}';
+	}
 }

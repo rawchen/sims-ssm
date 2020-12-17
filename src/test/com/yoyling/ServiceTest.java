@@ -2,7 +2,9 @@ package com.yoyling;
 
 import com.yoyling.domain.Score;
 import com.yoyling.domain.Student;
+import com.yoyling.domain.User;
 import com.yoyling.service.ScoreService;
+import com.yoyling.service.UserService;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -23,5 +25,14 @@ public class ServiceTest {
 		student.setClassesId(1);
 		student.setStudentEmail("123123@qq.com");
 		System.out.println(student);
+	}
+
+	@Test
+	public void run3() {
+		ApplicationContext ac = new
+				ClassPathXmlApplicationContext("classpath:spring-context.xml");
+		UserService userService = (UserService) ac.getBean("userService");
+		User user = userService.selectByUserNumber("1812123206");
+		System.out.println(user);
 	}
 }
