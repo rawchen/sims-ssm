@@ -11,6 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * 基础控制器，用来继承。
+ * 1、自动注入所有所需服务层接口
+ * 2、设置request、response、session对象
+ */
 @Controller
 public class BaseController {
 
