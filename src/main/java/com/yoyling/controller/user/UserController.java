@@ -22,7 +22,7 @@ public class UserController extends BaseController {
 	public Map<String,Object> selectByUserNumber(User u,
 												 @RequestParam(value = "remember", required = false) String remember) {
 		Map<String, Object> map = new HashMap<>();
-		User user = userService.selectByUserNumber(u.getUserNumber());
+		User user = userService.selectByUserNumberAndPassword(u.getUserNumber(),u.getUserPassword());
 		if (user == null) {
 			map.put("data", "fail");
 		} else {
