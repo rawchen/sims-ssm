@@ -27,7 +27,7 @@
     where user_number = #{userNumber}
   </select>
 
-  <select id="selectByUserNumberAndPassword" parameterType="String" resultMap="BaseResultMap">
+  <select id="selectByUserNumberAndPassword" parameterType="com.yoyling.domain.User" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"/>
     from user

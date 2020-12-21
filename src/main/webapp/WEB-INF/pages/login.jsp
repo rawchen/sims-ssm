@@ -27,7 +27,7 @@
 			<div class="layui-form-item">
 				<label class="layadmin-user-login-icon layui-icon layui-icon-username"
 				       for="LAY-user-login-username"></label>
-				<input type="text" name="username" id="LAY-user-login-username" lay-verify="required"
+				<input type="text" name="usernumber" id="LAY-user-login-username" lay-verify="required"
 				       placeholder="用户名(学号或工号)" class="layui-input">
 			</div>
 			<div class="layui-form-item">
@@ -131,7 +131,7 @@
 			$.ajax({
 				type: 'post'
 				, url: '${ctx}/user/userLogin' //实际使用请改成服务端真实接口
-				, data: {'userName': field.username, 'userPassword': field.password, 'remember': field.remember}
+				, data: {'userNumber': field.usernumber, 'userPassword': field.password, 'remember': field.remember}
 				, success: function (res) {
 					// //请求成功后，写入 access_token
 					// layui.data(setter.tableName, {
@@ -139,16 +139,18 @@
 					//     ,value: res.data.access_token
 					// });
 					verifyCode = new GVerify("v_container");
-					if (res.data == "resultSuccess") {
+					if (res.data == "success") {
+						verifyCode = new GVerify("v_container");
 						//登入成功的提示与跳转
-						layer.msg('登入成功', {
+						layer.msg('进入系统中...', {
 							offset: '15px'
 							, icon: 1
 							, time: 1000
 						}, function () {
-							<%--location.href = '${ctx}/index'; //后台主页--%>
+
+							location.href = '${ctx}/index'; //后台主页
 						});
-					} else if (res.data == "resultFail") {
+					} else if (res.data == "fail") {
 						verifyCode = new GVerify("v_container");
 						layer.msg('用户名或密码错误', {
 							offset: '15px'
@@ -167,6 +169,7 @@
 
 		});
 
+		/*
 		$.ajax({
 			type: 'get'
 			, url: '${ctx}/json' //实际使用请改成服务端真实接口
@@ -223,37 +226,39 @@
 				}
 			}
 		});
+		*/
 
-
-		<%--setInterval(test,2000);--%>
-		<%--function test() {--%>
-		<%--	$.ajax({--%>
-		<%--		type: 'get'--%>
-		<%--		, url: '${ctx}/json2' //实际使用请改成服务端真实接口--%>
-		<%--		, success: function (res) {--%>
-		<%--			if (res.data == "111") {--%>
-		<%--				//登入成功的提示与跳转--%>
-		<%--				layer.msg('map对了', {--%>
-		<%--					offset: '15px'--%>
-		<%--					, icon: 1--%>
-		<%--					, time: 1000--%>
-		<%--				});--%>
-		<%--			} else if (res.data != "111") {--%>
-		<%--				layer.msg('错误', {--%>
-		<%--					offset: '15px'--%>
-		<%--					, icon: 2--%>
-		<%--					, time: 1000--%>
-		<%--				});--%>
-		<%--			} else {--%>
-		<%--				layer.msg('未知错误', {--%>
-		<%--					offset: '15px'--%>
-		<%--					, icon: 2--%>
-		<%--					, time: 1000--%>
-		<%--				});--%>
-		<%--			}--%>
-		<%--		}--%>
-		<%--	});--%>
-		<%--}--%>
+		/*
+		setInterval(test,2000);
+		function test() {
+			$.ajax({
+				type: 'get'
+				, url: '${ctx}/json2' //实际使用请改成服务端真实接口
+				, success: function (res) {
+					if (res.data == "111") {
+						//登入成功的提示与跳转
+						layer.msg('map对了', {
+							offset: '15px'
+							, icon: 1
+							, time: 1000
+						});
+					} else if (res.data != "111") {
+						layer.msg('错误', {
+							offset: '15px'
+							, icon: 2
+							, time: 1000
+						});
+					} else {
+						layer.msg('未知错误', {
+							offset: '15px'
+							, icon: 2
+							, time: 1000
+						});
+					}
+				}
+			});
+		}
+		*/
 
 
 		// //实际使用时记得删除该代码

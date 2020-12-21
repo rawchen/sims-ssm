@@ -41,8 +41,12 @@ public class ServiceTest {
 		ApplicationContext ac = new
 				ClassPathXmlApplicationContext("classpath:spring-context.xml");
 		UserService userService = (UserService) ac.getBean("userService");
-		User user = userService.selectByUserNumberAndPassword("1812123206","123456");
-		System.out.println(user);
+
+		User user = new User();
+		user.setUserNumber("1812123206");
+		user.setUserPassword("123456");
+		User user2 = userService.selectByUserNumberAndPassword(user);
+		System.out.println(user2);
 	}
 
 

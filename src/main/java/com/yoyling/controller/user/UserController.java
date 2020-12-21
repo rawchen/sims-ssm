@@ -22,7 +22,7 @@ public class UserController extends BaseController {
 	public Map<String,Object> selectByUserNumber(User u,
 												 @RequestParam(value = "remember", required = false) String remember) {
 		Map<String, Object> map = new HashMap<>();
-		User user = userService.selectByUserNumberAndPassword(u.getUserNumber(),u.getUserPassword());
+		User user = userService.selectByUserNumberAndPassword(u);
 		if (user == null) {
 			map.put("data", "fail");
 		} else {
@@ -33,8 +33,13 @@ public class UserController extends BaseController {
 			//记住密码存cookie
 			SetCookie.setUserLoginCookie(user.getUserName(), user.getUserPassword(), remember, request, response);
 		}
-
 		return map;
+	}
+
+	@RequestMapping("/logout")
+	public String logout() {
+		userService.deleteUserSession(session);
+		return "user/login";
 	}
 
 }
