@@ -46,6 +46,7 @@ html,body,#LAY_app{height:100%;}
 .ladmin-user-login-theme ul li:hover{opacity: 0.9}
 
 @media screen and (max-width: 768px) {
+  #verifyCanvas{width: 108px;padding-top: 4px;}
   .layadmin-user-login{padding-top: 60px;}
   .layadmin-user-login-main{width: 300px;}
   .layadmin-user-login-box{padding: 10px;}

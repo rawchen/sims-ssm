@@ -97,12 +97,6 @@
 		<!-- Java模板引擎 -->
 		<dependency>
 			<groupId>org.thymeleaf</groupId>
-			<artifactId>thymeleaf</artifactId>
-			<version>${thymeleaf.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.thymeleaf</groupId>
 			<artifactId>thymeleaf-spring5</artifactId>
 			<version>${thymeleaf.version}</version>
 		</dependency>

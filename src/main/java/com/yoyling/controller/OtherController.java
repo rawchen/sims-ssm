@@ -26,6 +26,11 @@ public class OtherController extends BaseController {
 		return "index";
 	}
 
+	@RequestMapping("/login")
+	public String test2() {
+		return "login";
+	}
+
 
 	@RequestMapping("/json")
 	@ResponseBody

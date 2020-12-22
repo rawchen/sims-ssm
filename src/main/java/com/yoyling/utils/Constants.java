@@ -7,6 +7,19 @@ import java.util.List;
  * 存放一些常量
  */
 public class Constants {
+
+    public static final String CHARACTER_ENCODING = "UTF-8";
+
+    public static final boolean TEMPLATE_CACHEABLE = false;
+
+    public static final String TEMPLATE_PREFIX = "/WEB-INF/templates/";
+
+    public static final String TEMPLATE_SUFFIX = "/WEB-INF/templates/";
+
+    public final static String TEMPLATE_MODE = "HTML5";
+
+    public final static Integer TEMPLATE_ORDER = 1;
+
     public static final String USER_DEFAULT_ICON_DIR = "/static/custom/img/uploadUserIcon";
 
     public static final String USER_DEFAULT_ICON_NAME = "user_default_icon.jpg";
