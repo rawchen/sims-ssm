@@ -12,7 +12,6 @@
 	<link rel="stylesheet" th:href="@{/static/plugins/layuiadmin/style/login.css}">
 </head>
 <body>
-<p th:text="${text}">
 <div class="layadmin-user-login layadmin-user-display-show" id="LAY-user-login" style="display: none;">
 
 	<div class="layadmin-user-login-main">
@@ -32,6 +31,7 @@
 					   for="LAY-user-login-password"></label>
 				<input type="password" name="password" id="LAY-user-login-password" lay-verify="required"
 					   placeholder="密码" class="layui-input">
+				<i class="layui-icon layui-icon-face-smile" id="showpwd"></i>
 			</div>
 			<div class="layui-form-item">
 				<div class="layui-row">
@@ -114,7 +114,9 @@
 		//提交
 		form.on('submit(LAY-user-login-submit)', function (obj) {
 			var field = obj.field;
-			console.log(field.remember);//测试是否获取到表单数据，调试模式下在页面控制台查看
+
+			//测试是否获取到表单数据，调试模式下在页面控制台查看
+			// console.log(field.remember);
 
 			var res = verifyCode.validate(field.vercode);
 			// 图形码验证
@@ -123,11 +125,26 @@
 			}
 
 
+			loadIndex = layer.load(1, {
+				shade: [0.5, '#000']
+			});
+
 			//请求登入接口
 			$.ajax({
 				type: 'post'
 				, url: './user/userLogin' //实际使用请改成服务端真实接口
 				, data: {'userNumber': field.usernumber, 'userPassword': field.password, 'remember': field.remember}
+				,complete: function () {
+					layer.close(loadIndex);
+				}
+				,error:function () {
+					verifyCode = new GVerify("v_container");
+					layer.msg('请求失败', {
+						offset: '15px'
+						, icon: 0
+						, time: 1000
+					});
+				}
 				, success: function (res) {
 					// //请求成功后，写入 access_token
 					// layui.data(setter.tableName, {
@@ -144,7 +161,7 @@
 							, time: 1000
 						}, function () {
 
-							location.href = './index'; //后台主页
+							location.href = 'index'; //后台主页
 						});
 					} else if (res.data == "fail") {
 						verifyCode = new GVerify("v_container");
@@ -152,6 +169,28 @@
 							offset: '15px'
 							, icon: 2
 							, time: 1000
+						});
+					}else if (res.data == "fzConnectFail") {
+						verifyCode = new GVerify("v_container");
+						layer.close(loadIndex);
+						layer.msg('请连接学校内网', {
+							offset: '15px'
+							, icon: 2
+							, time: 1000
+						});
+					} else if (res.data == "fzConnectAccountError") {
+						layer.msg('账号或密码错误', {
+							offset: '15px'
+							, icon: 2
+							, time: 1000
+						});
+					} else if (res.data == "fzConnectAccountSuccess") {
+						layer.msg('进入系统中...', {
+							offset: '15px'
+							, icon: 1
+							, time: 1000
+						}, function () {
+							location.href = 'index'; //后台主页
 						});
 					} else {
 						layer.msg('未知错误', {
@@ -162,7 +201,6 @@
 					}
 				}
 			});
-
 		});
 
 		/*
@@ -263,6 +301,17 @@
 		//     ,icon: 1
 		// });
 
+	});
+</script>
+<script type="text/javascript">
+	$(".layui-form-item").on("click", ".layui-icon-face-smile", function () {
+		$(this).removeClass("layui-icon-face-smile").addClass("layui-icon-face-surprised");
+		$(this).prev().attr("type", "text");
+	});
+
+	$(".layui-form-item").on("click", ".layui-icon-face-surprised", function () {
+		$(this).removeClass("layui-icon-face-surprised").addClass("layui-icon-face-smile");
+		$(this).prev().attr("type", "password");
 	});
 </script>
 </body>

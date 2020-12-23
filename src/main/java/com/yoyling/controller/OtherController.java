@@ -4,6 +4,7 @@ import com.yoyling.domain.Notify;
 import com.yoyling.domain.Score;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -14,23 +15,17 @@ import java.util.Map;
 @Controller
 public class OtherController extends BaseController {
 
+	@RequestMapping("/{page}")
+	public String test(@PathVariable String page) {
+		return page;
+	}
+
 	@RequestMapping("/console")
 	public String console(Model model) {
 		List<Notify> notifies = notifyService.selectFiveNotify();
 		model.addAttribute("notifies",notifies);
 		return "console";
 	}
-
-	@RequestMapping("/test")
-	public String test() {
-		return "index";
-	}
-
-	@RequestMapping("/login")
-	public String test2() {
-		return "login";
-	}
-
 
 	@RequestMapping("/json")
 	@ResponseBody

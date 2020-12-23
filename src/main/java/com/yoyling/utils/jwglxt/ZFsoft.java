@@ -1,5 +1,6 @@
 package com.yoyling.utils.jwglxt;
 
+import com.yoyling.domain.Score;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -43,7 +44,7 @@ public class ZFsoft {
 	 * @param password
 	 * @return
 	 */
-	private String encryp(String password){
+	private String encryp(String password) throws IOException {
 		//一、获取 exponent modulus 生成公钥
 		String exponent=null,modulus=null;
 		HttpGet gpkHttpGet=
@@ -56,7 +57,7 @@ public class ZFsoft {
 		gpkHttpGet.setHeader("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36");
 		gpkHttpGet.setHeader("X-Requested-With","XMLHttpRequest");
 		CloseableHttpResponse gpkResponse=null;
-		try {
+
 			gpkResponse = httpClient.execute(gpkHttpGet);
 			if (gpkResponse.getStatusLine().getStatusCode() == 200) {
 				String emJson = EntityUtils.toString(gpkResponse.getEntity(), "utf8");
@@ -64,16 +65,9 @@ public class ZFsoft {
 				exponent = jsonObject.getString("exponent");
 				modulus = jsonObject.getString("modulus");
 			}
-		}catch (Exception e){
-			System.out.println("连接异常");
-			e.printStackTrace();
-		}finally {
-			try {
-				gpkResponse.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+			gpkResponse.close();
+
+
 		//二、根据公钥进行密码加密
 		password=RSAEncoder.RSAEncrypt(password,B64.b64tohex(modulus),B64.b64tohex(exponent));
 		password=B64.hex2b64(password);
@@ -120,7 +114,7 @@ public class ZFsoft {
 	 * @param password 密码
 	 * @return
 	 */
-	public ZFsoft login(String username,String password){
+	public ZFsoft login(String username,String password) throws IOException {
 		String timestamp=""+new Date().getTime();
 		HttpPost loginHttpPost=new HttpPost(LOGIN_URL+timestamp);
 		loginHttpPost.setHeader("Accept","text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3");
@@ -164,7 +158,7 @@ public class ZFsoft {
 	 * @param xqm 学期比如1、或者2、或者3或者不填则为全年
 	 * @return
 	 */
-	public List<Score> checkScore(String xnm,String xqm){
+	public List<Score> checkScore(String xnm, String xqm){
 		HttpPost scoreHttpPost=new HttpPost(CHECK_SCORE_URL);
 		scoreHttpPost.setHeader("Accept","application/json, text/javascript, */*; q=0.01");
 		scoreHttpPost.setHeader("Accept-Encoding","gzip, deflate");
@@ -205,32 +199,32 @@ public class ZFsoft {
 
 					JSONArray jsonArray = jsonObject.getJSONArray("items");
 
-//					System.out.println(jsonArray);
-
-					List<Score>scoreList=new ArrayList<Score>();
+					List<Score>scoreList = new ArrayList<>();
 					for (int i = 0; i < jsonArray.length(); ++i) {
 						JSONObject item = (JSONObject) jsonArray.get(i);
-						Score score=new Score();
+						Score score = new Score();
 						score.setXh(item.getString("xh"));
-						score.setXm(item.getString("xm"));
-						score.setKcmc(item.getString("kcmc"));
-						score.setBj(item.getString("bj"));
-						score.setCj(item.getString("cj"));
-						score.setXf(item.getString("xf"));
-						String jd = "0";
-						try {
-							jd = item.getString("jd");
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-						score.setJd(jd);
-						score.setJgmc(item.getString("jgmc"));
 						score.setKch(item.getString("kch"));
-						score.setKcxzmc(item.getString("kcxzmc"));
-						score.setKsxz(item.getString("ksxz"));
-						scoreList.add(score);
-					}
-					return  scoreList;
+
+						if ("优秀".equals(item.getString("cj"))) {
+							score.setCj("95");
+						} else if ("良好".equals(item.getString("cj"))) {
+							score.setCj("85");
+						} else if ("中等".equals(item.getString("cj"))) {
+							score.setCj("75");
+						} else if ("合格".equals(item.getString("cj"))) {
+							score.setCj("65");
+						} else{
+							score.setCj(item.getString("cj"));
+						}
+
+
+							score.setJd(Float.parseFloat(item.getString("jd")));
+							score.setXf(Float.parseFloat(item.getString("xf")));
+
+							scoreList.add(score);
+						}
+					return scoreList;
 				}
 			}
 		}catch (Exception e){
@@ -241,8 +235,9 @@ public class ZFsoft {
 
 	/**
 	 * 获取学生信息
+	 * @return
 	 */
-	public void getStudentInformation() {
+	public JSONObject getStudentInformation() {
 		HttpPost informationHttpPost=new HttpPost(STUDENT_INFORMATION_URL);
 
 		informationHttpPost.setHeader("Accept","application/json, text/javascript, */*; q=0.01");
@@ -264,15 +259,17 @@ public class ZFsoft {
 //					System.out.println("scoreJson:" + scoreJson);
 
 					JSONObject jsonObject = new JSONObject(scoreJson);
-
-					System.out.println("jsonObject:" + jsonObject);
-					System.out.println(jsonObject.getString("bh_id"));
+					return jsonObject;
+//					System.out.println("jsonObject:" + jsonObject);
+//					System.out.println(jsonObject.getString("bh_id"));
 
 				}
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
+			return null;
 		}
+		return null;
 	}
 
 

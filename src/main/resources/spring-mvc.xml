@@ -45,12 +45,15 @@
 
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/user/**"/>
+			<mvc:mapping path="/user2/**"/>
 			<bean class="com.yoyling.interceptor.LoginInterceptor"/>
 		</mvc:interceptor>
 	</mvc:interceptors>
 
 	<!-- 开启对SpringMVC注解的支持 -->
 	<mvc:annotation-driven />
+
+	<!-- 进入服务器跳转 -->
+	<mvc:view-controller path="/" view-name="/login"/>
 
 </beans>
