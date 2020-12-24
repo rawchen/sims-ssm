@@ -37,6 +37,7 @@ public class UserController extends BaseController {
 
 			} catch (IOException e) {
 				map.put("data", "fzConnectFail");
+				return map;
 			}
 
 			JSONObject jsonObject = zFsoft.getStudentInformation();
@@ -44,10 +45,12 @@ public class UserController extends BaseController {
 			if (jsonObject == null) {
 				System.out.println("密码错误");
 				map.put("data", "fzConnectAccountError");
+				return map;
 			} else {
 				System.out.println(jsonObject);
 				System.out.println(jsonObject.getString("bh_id"));
 				map.put("data", "fzConnectAccountSuccess");
+				return map;
 			}
 
 //			List<Score> scoreList = zFsoft.checkScore("2018","");
