@@ -76,10 +76,10 @@ public class UserController extends BaseController {
 		return map;
 	}
 
-	@RequestMapping("/logout")
+	@RequestMapping("/userLogout")
 	public String logout() {
 		userService.deleteUserSession(session);
-		return "user/login";
+		return "login";
 	}
 
 }
